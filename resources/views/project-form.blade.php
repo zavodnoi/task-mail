@@ -12,9 +12,9 @@
                         <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
                             <label for="name">Наименование</label>
                             <input type="text" class="form-control" id="name" name="name">
-                            @if ($errors->has('email'))
+                            @if ($errors->has('name'))
                                 <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                             @endif
                             @if($errors->has('name'))
@@ -23,8 +23,8 @@
                                 </span>
                             @endif
                         </div>
-                        <a href="{{route('project.index')}}" class="btn btn-danger">Отмена</a>
-                        <button type="submit" class="btn btn-default">Добавить</button>
+                        <a href="{{route('project.index')}}" class="btn btn-default">Отмена</a>
+                        <button type="submit" class="btn btn-success">Добавить</button>
                     </form>
                 </div>
             </div>

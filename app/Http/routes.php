@@ -21,3 +21,6 @@ Route::get('/', function () {
 });
 
 Route::resource('project', 'ProjectController', ['only' => ['index', 'create', 'store', 'destroy']]);
+Route::resource('event', 'EventController', ['except' => ['index']]);
+Route::get('event/{event}/delete-cause', ['as' => 'event.delete-cause', 'uses' => 'EventController@deleteCause']);
+Route::get('event/{event}/finish', ['as' => 'event.finish', 'uses' => 'EventController@finish']);
