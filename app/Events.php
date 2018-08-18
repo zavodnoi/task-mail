@@ -36,6 +36,11 @@ class Events extends Model
         return $this->belongsTo(DictionaryTypes::class, 'dictionary_type_id');
     }
 
+    public function accessUsers()
+    {
+        return $this->hasMany(EventAccess::class, 'event_id');
+    }
+
     public static function getRoadMap($year, $month)
     {
         $date = Carbon::createFromDate($year, $month);

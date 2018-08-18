@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DictionaryTypes;
 use App\Events;
 use App\Projects;
+use App\User;
 use Carbon\Carbon;
 use Validator;
 use Illuminate\Http\Request;
@@ -33,6 +34,8 @@ class EventController extends Controller
             'started_at' => 'required|date',
             'short_description' => 'required|string|max:255',
             'full_description' => 'required|string|max:5000',
+            'project_id' => 'required|exists:projects,id',
+            'dictionary_type_id' => 'required|exists:dictionary_types,id',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->with('event', $event);
@@ -59,6 +62,8 @@ class EventController extends Controller
             'started_at' => 'required|date',
             'short_description' => 'required|string|max:255',
             'full_description' => 'required|string|max:5000',
+            'project_id' => 'required|exists:projects,id',
+            'dictionary_type_id' => 'required|exists:dictionary_types,id',
         ];
         if($data['started_at'] != $event->started_at->format('Y-m-d')){
             $rules['cause_of_change'] = 'required|string|max:5000';
@@ -98,6 +103,28 @@ class EventController extends Controller
     }
 
     public function finish(Events $event)
+    {
+        $event->update(['finished_at' => Carbon::now()]);
+        return redirect()->route('event.show', $event->id);
+    }
+
+    public function accessEdit(Events $event)
+    {
+        $users = User::where('id', '<>', $event->user_id)->pluck('name', 'id');
+        $access_users = $event->accessUsers()->get()->groupBy('type');
+        $read_access = [];
+        $edit_access= [];
+        if($access_users->get('read')){
+            $read_access = $access_users->get('read')->pluck('user_id')->map('intval')->all();
+        }
+        if($access_users->get('edit')) {
+            $edit_access = $access_users->get('edit')->pluck('user_id')->map('intval')->all();
+        }
+
+        return view('event-access-form', compact('event', 'users', 'read_access', 'edit_access'));
+    }
+
+    public function accessUpdate(Events $event)
     {
         $event->update(['finished_at' => Carbon::now()]);
         return redirect()->route('event.show', $event->id);

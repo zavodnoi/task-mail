@@ -24,3 +24,5 @@ Route::resource('project', 'ProjectController', ['only' => ['index', 'create', '
 Route::resource('event', 'EventController', ['except' => ['index']]);
 Route::get('event/{event}/delete-cause', ['as' => 'event.delete-cause', 'uses' => 'EventController@deleteCause']);
 Route::get('event/{event}/finish', ['as' => 'event.finish', 'uses' => 'EventController@finish']);
+Route::get('event/{event}/access/edit', ['as' => 'event.access.edit', 'uses' => 'EventController@accessEdit']);
+Route::post('event/{event}/access/store', ['as' => 'event.access.store', 'uses' => 'EventController@accessUpdate']);

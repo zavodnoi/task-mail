@@ -14,6 +14,11 @@
                             @endif
                             <a href="{{route('event.edit', $event->id)}}" class="btn btn-warning">Редактировать</a>
                             <a href="{{route('event.delete-cause', $event->id)}}" class="btn btn-danger">Удалить</a>
+
+                            <a href="{{route('event.access.edit', $event->id)}}" class="btn btn-link pull-right">
+                                <i class="glyphicon glyphicon-user"></i>
+                                Настроить доступ
+                            </a>
                         </p>
                         <table class="table table-striped">
                             <tr>

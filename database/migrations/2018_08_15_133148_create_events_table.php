@@ -28,9 +28,9 @@ class CreateEventsTable extends Migration
             $table->text('full_description');
             $table->text('cause_of_change');
 
-            $table->timestamp('finished_at');
-            $table->timestamp('started_at');
-            $table->timestamp('deleted_at');
+            $table->timestamp('finished_at')->nullable();
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
 
             $table->timestamps();
         });

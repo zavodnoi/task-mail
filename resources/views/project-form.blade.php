@@ -14,11 +14,6 @@
                             <input type="text" class="form-control" id="name" name="name">
                             @if ($errors->has('name'))
                                 <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                            @endif
-                            @if($errors->has('name'))
-                                <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
