@@ -3,10 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 
-class Projects extends Model
+class Project extends Model
 {
     protected $guarded = ['id'];
     protected $table = 'projects';
@@ -22,7 +21,7 @@ class Projects extends Model
     //
     public function events()
     {
-        return $this->hasMany(Events::class, 'project_id');
+        return $this->hasMany(Event::class, 'project_id');
     }
 
     public function user()

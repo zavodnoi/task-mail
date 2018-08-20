@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Events extends Model
+class Event extends Model
 {
     protected $table = 'events';
 
@@ -28,7 +28,7 @@ class Events extends Model
 
     public function project()
     {
-        return $this->belongsTo(Projects::class, 'project_id');
+        return $this->belongsTo(Project::class, 'project_id');
     }
 
     public function type()
@@ -38,7 +38,7 @@ class Events extends Model
 
     public function accessUsers()
     {
-        return $this->hasMany(EventAccess::class, 'event_id');
+        return $this->belongsToMany(User::class, 'event_access', 'event_id', 'user_id')->withPivot('type');
     }
 
     public static function getRoadMap($year, $month)

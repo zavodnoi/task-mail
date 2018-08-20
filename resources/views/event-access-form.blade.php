@@ -7,11 +7,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Настройка доступа к событию ({{$event->short_description}})</div>
                     <div class="panel-body">
-                        <form method="POST" action="{{route('event.destroy', $event->id)}}">
+                        <p class="alert alert-info">Доступ на редактирование, включает доступ на чтение.</p>
+                        <form method="POST" action="{{route('event.access.update', $event->id)}}">
                             {{csrf_field()}}
                             <div class="form-group {{$errors->has('read') ? 'has-error' : ''}}">
                                 <label for="read">Доступ на чтение</label>
-                                {!! Form::select('read', $users, $read_access, ['multiple'=>'multiple','name'=>'read[]', 'class' => 'form-control']) !!}
+                                {!! Form::select('read', $users, $errors->has('read') ? old('read') : $read_access, ['multiple'=>'multiple','name'=>'read[]', 'class' => 'form-control']) !!}
                                 @if ($errors->has('read'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('read') }}</strong>
@@ -20,8 +21,8 @@
                             </div>
 
                             <div class="form-group {{$errors->has('edit') ? 'has-error' : ''}}">
-                                <label for="edit">Доступ на чтение</label>
-                                {!! Form::select('edit', $users, $read_access, ['multiple'=>'multiple','name'=>'edit[]', 'class' => 'form-control']) !!}
+                                <label for="edit">Доступ на редактирование</label>
+                                {!! Form::select('edit', $users, $errors->has('read') ? old('read') : $edit_access, ['multiple'=>'multiple','name'=>'edit[]', 'class' => 'form-control']) !!}
                                 @if ($errors->has('edit'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('edit') }}</strong>
@@ -30,7 +31,7 @@
                             </div>
 
                             <a href="{{route('event.show', $event->id)}}" class="btn btn-default">Отмена</a>
-                            <button type="submit" class="btn btn-danger">Удалить</button>
+                            <button type="submit" class="btn btn-warning">Сохранить</button>
                         </form>
                     </div>
                 </div>

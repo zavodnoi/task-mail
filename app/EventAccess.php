@@ -2,12 +2,14 @@
 
 namespace App;
 
-use App\Events\Event;
 use Illuminate\Database\Eloquent\Model;
 
 
 class EventAccess extends Model
 {
+    const ACCESS_READ = 'read';
+    const ACCESS_EDIT = 'edit';
+
     protected $table = 'event_access';
 
     protected $guarded = ['id'];

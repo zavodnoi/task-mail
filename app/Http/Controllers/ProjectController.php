@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events;
-use App\Projects;
+use App\Event;
+use App\Log;
+use App\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -19,8 +20,8 @@ class ProjectController extends Controller
             $year = Carbon::now()->year;
             $month = Carbon::now()->month;
         }
-        $projects = Projects::all();
-        $weeks = Events::getRoadMap($year, $month);
+        $projects = Project::all();
+        $weeks = Event::getRoadMap($year, $month);
 
         return view('project-index', compact('projects', 'weeks', 'year', 'month'));
     }
@@ -41,13 +42,9 @@ class ProjectController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        Projects::create($data);
+        $project_id = Project::create($data);
+        Log::add($project_id);
 
         return redirect()->route('project.index');
-    }
-
-    public function delete()
-    {
-
     }
 }

@@ -7,19 +7,57 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Событие</div>
                     <div class="panel-body">
-                        <p>
-                            <a href="{{route('project.index')}}" class="btn btn-default">Назад</a>
-                            @if(!$event->finished_at)
-                            <a href="{{route('event.finish', $event->id)}}" class="btn btn-primary">Завершить</a>
-                            @endif
-                            <a href="{{route('event.edit', $event->id)}}" class="btn btn-warning">Редактировать</a>
-                            <a href="{{route('event.delete-cause', $event->id)}}" class="btn btn-danger">Удалить</a>
-
-                            <a href="{{route('event.access.edit', $event->id)}}" class="btn btn-link pull-right">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Настроить доступ
+                        <div class="col-sm-6">
+                            <a href="{{route('project.index')}}" class="btn btn-default">
+                                <i class="glyphicon glyphicon-menu-left"></i>
+                                Назад
                             </a>
-                        </p>
+                        </div>
+                        <div class="col-sm-6">
+                            @can('edit', $event)
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        Действия <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        @can('access-edit', $event)
+                                            <li>
+                                                <a href="{{route('event.access.edit', $event->id)}}">
+                                                    <i class="glyphicon glyphicon-user"></i>
+                                                    Настроить доступ
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('finish', $event)
+                                            <li>
+                                                <a href="{{route('event.finish', $event->id)}}">
+                                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                                    Завершить
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        <li>
+                                            <a href="{{route('event.edit', $event->id)}}">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                                Редактировать
+                                            </a>
+                                        </li>
+                                        @can('access-edit', $event)
+                                            <li>
+                                                <a href="{{route('event.delete-cause', $event->id)}}">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                    Удалить
+                                                </a>
+                                            </li>
+                                        @endcan
+                                    </ul>
+                                </div>
+                            @endcan
+                        </div>
+                        <br>
+                        <br>
+
                         <table class="table table-striped">
                             <tr>
                                 <th style="width: 30%;">Дата начала</th>

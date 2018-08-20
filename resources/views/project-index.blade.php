@@ -61,12 +61,19 @@
                                                         }
                                                     @endphp
                                                     @foreach($events as $event)
+                                                        @can('read', $event)
                                                         <a href="{{route('event.show', $event->id)}}"
                                                            class="btn btn-info btn-sm"
                                                            style="white-space: normal; padding: 0">
                                                             {{$event->short_description}}
                                                         </a>
                                                         <br><br>
+                                                        @else
+                                                        <button class="btn btn-default btn-sm disabled" style="white-space: normal; padding: 0">
+                                                            {{$event->short_description}}
+                                                        </button>
+                                                        <br><br>
+                                                        @endcan
                                                     @endforeach
                                                 </td>
                                             @endforeach
