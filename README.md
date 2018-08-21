@@ -1,4 +1,4 @@
-#Task Mail Group
+# Task Mail Group
 
 ТЗ:
 Система предназначена для ведения road map по проектам.
@@ -24,8 +24,14 @@
     b.	Просмотр события.
     c.	Логирование действий пользователей.
     d.	Назначение прав на проекты (чтение, редактирование).
-
-install
-
+    
 ## License
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+### install
+1. git clone https://github.com/zavodnoi/task-mail.git
+2. php composer.phar install
+3. cp .env.example .env
+4. в файле .env указать настройки подключения к БД (DB_*)
+5. php artisan migrate
+6. php artisan db:seed
