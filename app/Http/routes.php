@@ -12,17 +12,15 @@
 */
 Route::auth();
 
-Route::get('/', function () {
-    if(\Illuminate\Support\Facades\Auth::id()){
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', function () {
         return redirect('/project');
-    }else{
-        return redirect('/login');
-    }
-});
+    });
 
-Route::resource('project', 'ProjectController', ['only' => ['index', 'create', 'store']]);
-Route::resource('event', 'EventController', ['except' => ['index']]);
-Route::get('event/{event}/delete-cause', ['as' => 'event.delete-cause', 'uses' => 'EventController@deleteCause']);
-Route::get('event/{event}/finish', ['as' => 'event.finish', 'uses' => 'EventController@finish']);
-Route::get('event/{event}/access/edit', ['as' => 'event.access.edit', 'uses' => 'EventController@accessEdit']);
-Route::post('event/{event}/access/update', ['as' => 'event.access.update', 'uses' => 'EventController@accessUpdate']);
+    Route::resource('project', 'ProjectController', ['only' => ['index', 'create', 'store']]);
+    Route::resource('event', 'EventController', ['except' => ['index']]);
+    Route::get('event/{event}/delete-cause', ['as' => 'event.delete-cause', 'uses' => 'EventController@deleteCause']);
+    Route::get('event/{event}/finish', ['as' => 'event.finish', 'uses' => 'EventController@finish']);
+    Route::get('event/{event}/access/edit', ['as' => 'event.access.edit', 'uses' => 'EventController@accessEdit']);
+    Route::post('event/{event}/access/update', ['as' => 'event.access.update', 'uses' => 'EventController@accessUpdate']);
+});
