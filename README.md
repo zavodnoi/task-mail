@@ -36,3 +36,9 @@ version laravel 5.2
 4. в файле .env указать настройки подключения к БД (DB_*)
 5. php artisan migrate
 6. php artisan db:seed
+
+Логины пользователей
+first@first.com
+second@second.com
+third@third.com
+Пароль secret
