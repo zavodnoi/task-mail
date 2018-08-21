@@ -28,7 +28,7 @@
 ## License
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
-version of laravel 5.2
+version laravel 5.2
 ### install
 1. git clone https://github.com/zavodnoi/task-mail.git
 2. php composer.phar install
